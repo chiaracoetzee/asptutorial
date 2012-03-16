@@ -1,0 +1,27 @@
+SEJITS is a framework for building small compilers embedded
+domain-specific languages.
+
+Asp is a SEJITS framework for Python.
+
+This is a tutorial which will run in the browser and allow new
+specializer developers to learn to program for Asp without installing
+anything. It is designed to run in production on an Apache2 server
+with the WSGI module.
+
+Asp code is an old version from https://github.com/shoaibkamil/asp/
+stripped of its specializers and will be updated to use an installed
+version later. codepy and cgen are Asp dependencies, and the most
+recent version as of 15 March 2012 is included here (they will also be
+updated to use an installed version later). They are available from:
+
+http://git.tiker.net/trees/codepy.git
+http://git.tiker.net/trees/cgen.git 
+
+This tutorial uses Django and is configured to use a MySQL database,
+although it currently uses it for nothing. Configuration may be
+required for Asp to run, see:
+
+https://github.com/shoaibkamil/asp/wiki/Installing-required-libraries
+
+Apache configuration is also required to run in production mode. You
+can run in debug mode with the "runserver" script.

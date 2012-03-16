@@ -1,0 +1,2 @@
+#!/bin/sh
+PYTHONPATH=.:asp:codepy:cgen python manage.py runserver 8080
