@@ -44,8 +44,8 @@ print(ArrayDoubler().double_using_template([1.0, 2.0, 3.0, 2.0]))
     return HttpResponse(result)
 
 class ExecWrapper:
-    def __init__(self, str):
-        self.str = str
+    def __init__(self, code):
+        self.str = code
 
     def run(self):
         exec(self.str)

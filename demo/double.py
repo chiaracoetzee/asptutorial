@@ -1,7 +1,6 @@
 # Simple example of using templates for CS 294-76:
 # Communication-Avoiding Algorithms, based on array_doubler
 
-import unittest
 import os
 
 class ArrayDoubler(object):
