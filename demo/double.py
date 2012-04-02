@@ -1,5 +1,4 @@
-# Simple example of using templates for CS 294-76:
-# Communication-Avoiding Algorithms, based on array_doubler
+# Simple example of using templates
 
 import os
 
@@ -9,7 +8,9 @@ class ArrayDoubler(object):
 
     def double_using_template(self, arr):
         import asp.codegen.templating.template as template
-        mytemplate = template.Template(filename=os.path.dirname(__file__) + "/double_template.mako", disable_unicode=True)
+        # mytemplate = template.Template(filename=os.path.dirname(__file__) + "/double_template.mako", disable_unicode=True)
+        # template.Template("")
+        mytemplate = template.Template(template_text)
         rendered = mytemplate.render(num_items=len(arr))
 
         import asp.jit.asp_module as asp_module
@@ -23,3 +24,7 @@ class ArrayDoubler(object):
 
     def double(self, arr):
         return map (lambda x: x*2, arr)
+
+def set_template_text(text):
+    global template_text
+    template_text = text

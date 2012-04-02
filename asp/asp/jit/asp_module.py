@@ -66,7 +66,7 @@ class ASPDB(object):
         if variant:
             query += " and variant=?"
             params += (variant,)
-        
+
         if key:
             query += " and key=?"
             params += (key,)
@@ -127,8 +127,8 @@ class SpecializedFunction(object):
     what are passed to the specialized function.
 
     """
-    
-    def __init__(self, name, backend, db, variant_names=[], variant_funcs=[], run_check_function=None, 
+
+    def __init__(self, name, backend, db, variant_names=[], variant_funcs=[], run_check_function=None,
                  key_function=None):
         self.name = name
         self.backend = backend
@@ -136,7 +136,7 @@ class SpecializedFunction(object):
         self.variant_names = []
         self.variant_funcs = []
         self.variant_times = {}
-        
+
         for x in xrange(len(variant_names)):
             self.add_variant(variant_names[x], variant_funcs[x])
 
@@ -172,8 +172,8 @@ class SpecializedFunction(object):
                             (variant_name, self.name))
         self.variant_names.append(variant_name)
         self.variant_funcs.append(variant_func)
-        
-        if isinstance(variant_func, str):
+
+        if isinstance(variant_func, basestring):
             self.backend.module.add_to_module([cpp_ast.Line(variant_func)])
             self.backend.module.add_to_init([cpp_ast.Statement("boost::python::def(\"%s\", &%s)" % (variant_name, variant_name))])
         else:
@@ -289,12 +289,12 @@ class ASPModule(object):
 
     #FIXME: specializer should be required.
     def __init__(self, specializer="default_specializer", cache_dir=None, use_cuda=False, use_cilk=False):
-            
+
         self.specialized_functions= {}
         self.helper_method_names = []
 
         self.db = ASPDB(specializer)
-        
+
         if cache_dir:
             self.cache_dir = cache_dir
         else:
@@ -325,7 +325,7 @@ class ASPModule(object):
 
     def add_library(self, feature, include_dirs, library_dirs=[], libraries=[], backend="c++"):
         self.backends[backend].toolchain.add_library(feature, include_dirs, library_dirs, libraries)
-        
+
     def add_cuda_library(self, feature, include_dirs, library_dirs=[], libraries=[]):
         """
         Deprecated.  Use add_library(..., backend="cuda")
@@ -334,7 +334,7 @@ class ASPModule(object):
 
     def add_cuda_arch_spec(self, arch):
         archflag = '-arch='
-        if 'sm_' not in arch: archflag += 'sm_' 
+        if 'sm_' not in arch: archflag += 'sm_'
         archflag += arch
         self.backends["cuda"].toolchain.cflags += [archflag]
 
@@ -359,7 +359,7 @@ class ASPModule(object):
         if isinstance(pa, str):
             pa = [cpp_ast.Line(pa)]
         self.add_to_preamble(pa, backend="cuda")
-        
+
     def add_to_init(self, stmt, backend="c++"):
         if isinstance(stmt, str):
             stmt = [cpp_ast.Line(stmt)]
@@ -370,9 +370,9 @@ class ASPModule(object):
         if isinstance(block, str):
             block = [cpp_ast.Line(block)]
         self.backends["cuda"].module.add_to_module(block)
-        
 
-    def add_function(self, fname, funcs, variant_names=None, run_check_function=None, key_function=None, 
+
+    def add_function(self, fname, funcs, variant_names=None, run_check_function=None, key_function=None,
                      backend="c++"):
         """
         Add a specialized function to the Asp module.  funcs can be a list of variants, but then
@@ -384,7 +384,7 @@ class ASPModule(object):
             variant_names = [fname]
 
         self.specialized_functions[fname] = SpecializedFunction(fname, self.backends[backend], self.db, variant_names,
-                                                                variant_funcs=funcs, 
+                                                                variant_funcs=funcs,
                                                                 run_check_function=run_check_function,
                                                                 key_function=key_function)
 
